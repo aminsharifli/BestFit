@@ -1,0 +1,24 @@
+{
+  "name": "best-fit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aminsharifli/BestFit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/aminsharifli/BestFit/issues"
+  },
+  "homepage": "https://github.com/aminsharifli/BestFit#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
