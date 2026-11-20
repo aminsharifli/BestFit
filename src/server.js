@@ -1,8 +1,15 @@
 import express from "express";
 import { events } from "./data/events.js";
+import { logger } from "./middleware/logger.js";
+import { notFound } from "./middleware/notFound.js";
+import { validateEvent } from "./middleware/validateEvent.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express()
-const PORT = 3000
+const PORT = 3005
+
+app.use(logger)
+app.use(express.json())
 
 app.get("/" ,(req,res)=> {
     res.json({ message: "Ana sehife"})
@@ -44,10 +51,21 @@ app.get("/events/:id", (req,res)=>{
     res.status(200).json(event);
 });
 
-app.all("/*splat", (req,res)=>{
-    res.status(404).json({error: `Route not found: ${req.method} , ${req.originalUrl}`})
-});
+app.post("/events" , validateEvent , (req,res)=>{
+    const {title, category, description, time, price} = req.body
+    const id = Math.max(...events.map((e) => e.id)) +1 ;
+    const event = {id, title, category, description, time, price}
 
+    events.push(event);
+    res.status(201).json(event);
+})
+
+// app.all("/*splat", (req,res)=>{
+//     res.status(404).json({error: `Route not found: ${req.method} , ${req.originalUrl}`})
+// });
+
+app.use(notFound)
+app.use(errorHandler)
 app.listen(PORT ,()=>{
     console.log(`URL : http://localhost:${PORT}`);  
 });
