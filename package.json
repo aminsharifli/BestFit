@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "db:psql": "docker compose exec db psql -U bestfit -d bestfit",
+    "db:reset": "docker compose exec db psql -U bestfit -d bestfit -f /db/schema.sql -f /db/seed.sql"
   },
   "repository": {
     "type": "git",
